@@ -15,6 +15,7 @@ jobs:
     - name: Run commands
       run: |
         set -x
+        brew install tree
         make --version
         brew install make
         make --version
