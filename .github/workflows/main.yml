@@ -11,6 +11,7 @@ jobs:
     - name: Install things
       run: |
         set -x
+        echo "::set-env name=PATH::/usr/local/opt/make/libexec/gnubin:$PATH"
         brew install tree
         make --version
         brew install make
@@ -21,7 +22,7 @@ jobs:
 
     - name: Configure environment variables
       run: |
-        echo "::set-env name=PATH::/usr/local/opt/make/libexec/gnubin:$PATH"
+        echo Nothing.
 
     - name: Check things
       run: |
