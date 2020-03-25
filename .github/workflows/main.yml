@@ -22,6 +22,4 @@ jobs:
         gmake --version
         which -a make
         which -a gmake
-        export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
-        make --version
         tree /usr/local/opt/
