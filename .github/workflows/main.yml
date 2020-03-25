@@ -19,5 +19,8 @@ jobs:
         brew install make
         make --version
         gmake --version
-        brew install make --with-default-names
+        where make
+        where gmake
+        export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
         make --version
+        tree /usr/local/opt/
