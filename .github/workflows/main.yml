@@ -11,6 +11,7 @@ jobs:
       run: |
         set -x
         make --version
-        brew install rsync
+        rsync --version
+        brew install rsync make
         make --version
-        brew install make
+        rsync --version
