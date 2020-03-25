@@ -8,11 +8,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Configure environment variables
-      run: |
-        echo "::set-env name=PATH::/usr/local/opt/make/libexec/gnubin:$PATH"
-
-    - name: Run commands
+    - name: Install things
       run: |
         set -x
         brew install tree
@@ -22,4 +18,22 @@ jobs:
         gmake --version
         which -a make
         which -a gmake
+
+    - name: Configure environment variables
+      run: |
+        echo "::set-env name=PATH::/usr/local/opt/make/libexec/gnubin:$PATH"
+
+    - name: Check things
+      run: |
+        set -x
+        make --version
+        gmake --version
+        tree /usr/local/opt/
+
+    - name: Explicitly export PATH
+      run: |
+        set -x
+        export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
+        make --version
+        gmake --version
         tree /usr/local/opt/
