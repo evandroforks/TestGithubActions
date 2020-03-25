@@ -7,10 +7,14 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
+
     - name: Configure environment variables
+      run: |
+        echo "::set-env name=PATH::/usr/local/opt/make/libexec/gnubin:$PATH"
+
+    - name: Run commands
       run: |
         set -x
         make --version
         brew install make --with-default-names
         make --version
-
