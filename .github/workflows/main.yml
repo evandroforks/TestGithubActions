@@ -34,7 +34,7 @@ jobs:
         uses: actions/cache@v1
         with:
           path: join( [${{ matrix.PIP_WHEELS_DIR }}, big, deal], matrix.SEP )
-          key: ${{ runner.os }}-pip-2-
+          key: ${{ runner.os }}-pip-3-
 
       - run: echo Print something.
 
