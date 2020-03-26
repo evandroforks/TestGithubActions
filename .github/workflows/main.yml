@@ -33,7 +33,7 @@ jobs:
       - name: Cache pip wheels
         uses: actions/cache@v1
         with:
-          path: join( [${{ matrix.PIP_WHEELS_DIR }}, big, deal], matrix.SEP], optionalSeparator )
+          path: join( [${{ matrix.PIP_WHEELS_DIR }}, big, deal], matrix.SEP )
           key: ${{ runner.os }}-pip-2-
 
       - run: echo Print something.
