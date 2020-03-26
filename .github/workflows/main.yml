@@ -33,11 +33,10 @@ jobs:
       - name: Cache pip wheels
         uses: actions/cache@v1
         with:
-          path: ${{ join( [ 'big', 'deal' ], matrix.SEP ) }}
+          path: ${{ join( 'big', 'deal', matrix.SEP ) }}
           key: ${{ runner.os }}-pip-3-
 
       - run: echo Print something.
 
       - run: echo On ubuntu-latest
         if: matrix.os == 'ubuntu-latest'
-
