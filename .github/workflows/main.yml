@@ -1,40 +1,39 @@
 name: CI
-
 on: [push, pull_request]
 
 jobs:
-  build:
-    runs-on: macos-latest
+  tests:
+    name: Test ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            PIP_WHEELS_DIR: ~/.cache/pip
+            CARGO_INDEX_DIR: ~/.cargo/git
+            CARGO_REGISTRY_DIR: ~/.cargo/registry
+
+          - os: macos-latest
+            PIP_WHEELS_DIR: ~/Library/Caches/pip
+            CARGO_INDEX_DIR: ~/.cargo/git
+            CARGO_REGISTRY_DIR: ~/.cargo/registry
+
+          - os: windows-latest
+            PIP_WHEELS_DIR: ~\AppData\Local\pip\Cache
+            CARGO_INDEX_DIR: C:\Rust\.cargo\git
+            CARGO_REGISTRY_DIR: C:\Rust\.cargo\registry
+
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Install things
-      run: |
-        set -x
-        echo "::set-env name=PATH::/usr/local/opt/make/libexec/gnubin:$PATH"
-        brew install tree
-        make --version
-        brew install make
-        make --version
-        gmake --version
-        which -a make
-        which -a gmake
+      - name: Cache pip wheels
+        uses: actions/cache@v1
+        with:
+          path: ${{ matrix.PIP_WHEELS_DIR }}
+          key: ${{ runner.os }}-pip-1-
 
-    - name: Configure environment variables
-      run: |
-        echo Nothing.
+      - run: echo Print something.
 
-    - name: Check things
-      run: |
-        set -x
-        make --version
-        gmake --version
-        tree /usr/local/opt/
-
-    - name: Explicitly export PATH
-      run: |
-        set -x
-        export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
-        make --version
-        gmake --version
-        tree /usr/local/opt/
+      - run: echo On ubuntu-latest
+        if: matrix.os == 'ubuntu-latest'
