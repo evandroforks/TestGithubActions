@@ -30,13 +30,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Cache pip wheels
+      - name: Cache git
+        if: matrix.os == 'windows-latest'
         uses: actions/cache@v1
         with:
-          path: ${{ matrix.PIP_WHEELS_DIR }}${{ matrix.SEP }}var${{ matrix.SEP }}home
-          key: ${{ runner.os }}-pip-4-
+          path: ${{ ProgramFiles }}${{ matrix.SEP }}Git
+          key: ${{ runner.os }}-git-${{ hashFiles('**/main.yml') }}-1-
 
       - run: echo Print something.
-
       - run: echo On ubuntu-latest
         if: matrix.os == 'ubuntu-latest'
