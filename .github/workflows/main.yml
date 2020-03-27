@@ -35,7 +35,7 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ${{ env.ProgramFiles }}${{ matrix.SEP }}Git
-          key: ${{ runner.os }}-git-${{ hashFiles('**/main.yml') }}-1-
+          key: ${{ runner.os }}-git-${{ hashFiles('**\main.yml') }}-1-
 
       - run: echo Print something.
       - run: echo On ubuntu-latest
