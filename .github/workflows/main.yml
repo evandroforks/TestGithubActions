@@ -37,6 +37,15 @@ jobs:
           path: ${{ env.ProgramFiles }}${{ matrix.SEP }}Git
           key: ${{ runner.os }}-git-${{ hashFiles('**\main.yml') }}-1-
 
+
+      - name: Run on Windows
+        if: matrix.os == 'windows-latest'
+        run: |
+          echo on
+          curl -LO https://download.lfd.uci.edu/pythonlibs/s2jqpv5t/PyAudio-0.2.11-cp37-cp37m-win_amd64.whl
+          cmd /C for /R %%i in (*.whl) DO (python -m pip install "PyAudio-0.2.11-cp27-cp27m-win_amd64.whl" ^|^| exit)
+          echo "do no run this!"
+
       - run: echo Print something.
       - run: echo On ubuntu-latest
         if: matrix.os == 'ubuntu-latest'
