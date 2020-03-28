@@ -47,7 +47,7 @@ jobs:
           copy PyAudio-0.2.11-cp37-cp37m-win_amd64.whl PyAudio-0.2.11-cp32-cp37m-win_amd64.whl
           setlocal EnableDelayedExpansion
           cmd /V:ON /C set "wheels=" && for /f "delims=" %%i in ('dir /b *.whl') DO set "wheels="%%i" !wheels!" ^|^| exit
-          python -m pip install %wheels% || exit /b
+          python -m pip install %wheels%
           python -c "import aqt; # aqt.run()"
           echo "do no run this!"
   
