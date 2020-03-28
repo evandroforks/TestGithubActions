@@ -45,9 +45,9 @@ jobs:
           echo on
           curl -LO https://download.lfd.uci.edu/pythonlibs/s2jqpv5t/PyAudio-0.2.11-cp37-cp37m-win_amd64.whl
           copy PyAudio-0.2.11-cp37-cp37m-win_amd64.whl PyAudio-0.2.12-cp37-cp37m-win_amd64.whl
-          set "pythonwheels="
-          cmd /C for /R %%i in (*.whl) DO set "pythonwheels=!pythonwheels! %%i" ^|^| exit
-          python -m pip install !pythonwheels! ^|^| exit
+          cmd /V:ON /C set "wheels=" && for /R %%i in (*.whl) DO set "wheels="%%i" !wheels!" ^|^| exit
+          python -m pip install %wheels% || exit /b
+          python -c "import aqt; # aqt.run()"
           echo "do no run this!"
   
       - run: echo Print something.
