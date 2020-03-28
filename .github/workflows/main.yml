@@ -44,7 +44,7 @@ jobs:
         run: |
           echo on
           curl -LO https://download.lfd.uci.edu/pythonlibs/s2jqpv5t/PyAudio-0.2.11-cp37-cp37m-win_amd64.whl
-          copy PyAudio-0.2.11-cp37-cp37m-win_amd64.whl PyAudio-0.2.12-cp37-cp37m-win_amd64.whl
+          copy PyAudio-0.2.11-cp37-cp37m-win_amd64.whl PyAudio-0.2.11-cp32-cp37m-win_amd64.whl
           setlocal EnableDelayedExpansion
           cmd /V:ON /C set "wheels=" && for /f "delims=" %%i in ('dir /b *.whl') DO set "wheels="%%i" !wheels!" ^|^| exit
           python -m pip install %wheels% || exit /b
