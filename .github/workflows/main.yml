@@ -4,53 +4,13 @@ on: [push, pull_request]
 jobs:
   tests:
     name: Test ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        include:
-          - os: ubuntu-latest
-            SEP: /
-            PIP_WHEELS_DIR: ~/.cache/pip
-            CARGO_INDEX_DIR: ~/.cargo/git
-            CARGO_REGISTRY_DIR: ~/.cargo/registry
-
-          - os: macos-latest
-            SEP: /
-            PIP_WHEELS_DIR: ~/Library/Caches/pip
-            CARGO_INDEX_DIR: ~/.cargo/git
-            CARGO_REGISTRY_DIR: ~/.cargo/registry
-
-          - os: windows-latest
-            SEP: \
-            PIP_WHEELS_DIR: ~\AppData\Local\pip\Cache
-            CARGO_INDEX_DIR: C:\Rust\.cargo\git
-            CARGO_REGISTRY_DIR: C:\Rust\.cargo\registry
-
+    runs-on: 'macos-latest'
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Cache git
-        if: matrix.os == 'windows-latest'
-        uses: actions/cache@v1
-        with:
-          path: ${{ env.ProgramFiles }}${{ matrix.SEP }}Git
-          key: ${{ runner.os }}-git-${{ hashFiles('**\main.yml') }}-1-
-
-
-      - name: Run on Windows
-        if: matrix.os == 'windows-latest'
-        shell: cmd
+      - name: Run commands
         run: |
-          echo on
-          curl -LO https://download.lfd.uci.edu/pythonlibs/s2jqpv5t/PyAudio-0.2.11-cp37-cp37m-win_amd64.whl
-          copy PyAudio-0.2.11-cp37-cp37m-win_amd64.whl PyAudio-0.2.11-cp32-cp37m-win_amd64.whl
-          setlocal EnableDelayedExpansion
-          cmd /V:ON /C set "wheels=" && for /f "delims=" %%i in ('dir /b *.whl') DO set "wheels="%%i" !wheels!" ^|^| exit
-          python -m pip install %wheels%
-          :: python -c "import aqt; # aqt.run()"
-          :: echo "do no run this!"
-  
-      - run: echo Print something.
-      - run: echo On ubuntu-latest
-        if: matrix.os == 'ubuntu-latest'
+          set -x
+          python --version
+          python3 --version
+          brew install python3
+          python --version
+          python3 --version
