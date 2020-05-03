@@ -11,6 +11,6 @@ jobs:
           set -x
           python --version
           python3 --version
-          brew install python3
+          brew reinstall python3
           python --version
           python3 --version
