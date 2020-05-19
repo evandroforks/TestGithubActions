@@ -64,6 +64,3 @@ jobs:
           pacman -Sv --noconfirm --overwrite='*' bash
           pacman -Sv --noconfirm --overwrite='*' rsync
 
-          :: clean all packages to decrease image size
-          pacman -Sccv --noconfirm
-          pacman -Qsv --noconfirm
