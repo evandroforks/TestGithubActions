@@ -7,6 +7,7 @@ jobs:
     runs-on: 'windows-latest'
     steps:
       - name: Run commands
+        shell: cmd
         run: |
           dir C:\msys64\usr\bin
           C:\msys64\usr\bin\pacman --version
