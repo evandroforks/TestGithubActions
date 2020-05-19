@@ -4,13 +4,9 @@ on: [push, pull_request]
 jobs:
   tests:
     name: Test ${{ matrix.os }}
-    runs-on: 'macos-latest'
+    runs-on: 'windows-latest'
     steps:
       - name: Run commands
         run: |
-          set -x
-          python --version
-          python3 --version
-          brew reinstall python3
-          python --version
-          python3 --version
+          dir C:\msys64\usr\bin
+          C:\msys64\usr\bin\pacman --version
