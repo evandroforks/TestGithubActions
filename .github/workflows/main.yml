@@ -9,5 +9,33 @@ jobs:
       - name: Run commands
         shell: cmd
         run: |
-          dir C:\msys64\usr\bin
-          C:\msys64\usr\bin\pacman --version
+          echo on
+          curl -LO http://repo.msys2.org/msys/x86_64/%pacmanbin%
+          curl -LO http://repo.msys2.org/msys/x86_64/%pacmanmirror%
+          curl -LO http://repo.msys2.org/msys/x86_64/%pacmankeys%
+
+          :: https://stackoverflow.com/questions/1359793/programmatically-extract-tar-gz
+          7z x "%pacmanbin%" -so | 7z x -aoa -si -ttar -o"%programfiles%\Git"
+          7z x "%pacmanmirror%" -so | 7z x -aoa -si -ttar -o"%programfiles%\Git"
+          7z x "%pacmankeys%" -so | 7z x -aoa -si -ttar -o"%programfiles%\Git"
+
+          :: Manually Install Pacman Binaries
+          :: https://github.com/Alexpux/MSYS2-pacman/issues/50
+          set "PATH=%programfiles%\Git\usr\bin"
+          bash pacman-key --init
+          bash pacman-key --populate msys2
+          bash pacman-key --refresh-keys
+          pacman -Tv
+          pacman -Syyuuv --overwrite='*'
+          pacman -Syuuv --overwrite='*'
+          pacman --version
+
+          :: We must install bash first, otherwise we will have bash fork errors:
+          :: https://github.com/evandroforks/anki/runs/524857054?check_suite_focus=true
+          :: 0 [main] pacman 748 dofork: child -1 - forked process 2896 died unexpectedly
+          pacman -Sv --noconfirm --overwrite='*' bash
+          pacman -Sv --noconfirm --overwrite='*' rsync
+
+          :: clean all packages to decrease image size
+          pacman -Sccv --noconfirm
+          pacman -Qsv --noconfirm
